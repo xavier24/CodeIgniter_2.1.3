@@ -36,7 +36,7 @@
         </div>
        
         
-        <?php if(count($deja_adoptes)): ?>
+        <?php if($deja_adoptes): ?>
                 
             <div id="panier">
                 <ul>

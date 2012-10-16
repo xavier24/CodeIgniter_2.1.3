@@ -9,10 +9,28 @@
         <p>Bosse en <?php echo anchor( 'prof/lister/'.$prof->specialite,$prof->specialite,array('title'=>'voir les profs de '.$prof->specialite, 'hreflang'=>'fr' )); ?>
         <p><?php echo $prof->cv ?></p>
     </div>
-    <p class="adopte">
-        <a href="" title="adopter <?php echo $prof->prenom.' '.$prof->nom ?>">J'adopte ce prof !</a>
-    </p>
+    <?php if(!isset($deja_adoptes[$prof->prof_id])): ?>
+        <p class ="adopte">
+            <?php echo anchor( 'prof/adopte/'.$prof->prof_id,"J'adopte ce prof",array('title'=>'voir les profs de '.$prof->specialite, 'hreflang'=>'fr' )); ?>
+        </p>
+        <?php else: ?>
+        <p class ="adopte">
+            <?php echo anchor( 'prof/libere/'.$prof->prof_id,"Je libère ce prof",array('title'=>'voir les profs de '.$prof->specialite, 'hreflang'=>'fr' )); ?>
+        </p>
+    <?php endif ?>  
 </div>
 <p id="voirliste">
     <?php echo anchor( 'prof/lister','Voir la liste des profs, toutes spécialités confondues',array('title'=>'voir la liste des profs', 'hreflang'=>'fr' )); ?>
 </p>
+<?php if($deja_adoptes): ?>
+                
+            <div id="panier">
+                <ul>
+                    <?php foreach($deja_adoptes as $prof): ?>
+                    <li>
+                        <?php echo $prof->nom.' '.$prof->prenom ?> - <?php echo anchor( 'prof/libere/'.$prof->prof_id,"Je libère ce prof",array('title'=>'voir les profs de '.$prof->specialite, 'hreflang'=>'fr' )); ?>
+                    </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+        <?php endif; ?>

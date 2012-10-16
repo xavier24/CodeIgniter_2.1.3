@@ -13,6 +13,7 @@ class Prof extends CI_Controller {
 	{
             $uri= $this->uri->segment(3);
             $dataList['deja_adoptes'] = $this->session->userdata('deja_adoptes');
+            $this->session->set_flashdata('current_url',current_url());
            
             $this->load->model('M_Prof');
             
@@ -36,7 +37,8 @@ class Prof extends CI_Controller {
               
         public function voir()
         {
-            
+            $dataProf['deja_adoptes'] = $this->session->userdata('deja_adoptes');
+            $this->session->set_flashdata('current_url',current_url());
             $this->load->model('M_Prof');
             $idProf = $this->uri->segment(3);
             $dataProf['prof'] = $this->M_Prof->voir($idProf);
@@ -57,8 +59,8 @@ class Prof extends CI_Controller {
             $deja_adoptes[$id] = $prof;
             $this->session->set_userdata(array('deja_adoptes'=>$deja_adoptes));
             
-            redirect('/prof/lister');
-            //redirect($this->session->flashdata('current_url'));
+            //redirect('/prof/lister');
+            redirect($this->session->flashdata('current_url'));
         }
         
         public function libere()
@@ -69,8 +71,8 @@ class Prof extends CI_Controller {
             $this->session->unset_userdata('deja_adoptes');
             $this->session->set_userdata('deja_adoptes',$deja_adoptes_tmp);
             
-            redirect('/prof/lister');
-            //redirect($this->session->flashdata('current_url'));
+            //redirect('/prof/lister');
+            redirect($this->session->flashdata('current_url'));
         }
 }
 
