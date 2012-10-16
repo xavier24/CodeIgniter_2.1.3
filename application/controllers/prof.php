@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Prof extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -19,8 +19,16 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+            $data['titre'] = 'Accueil';
+            $data['profs'] = 'tableau des profs';
+            $data['vue'] = $this->load->view('lister',$data,true);
+            $this->load->view('layout',$data);
 	}
+        
+        public function test()
+        {
+            $this->load->view('test');
+        }
 }
 
 /* End of file welcome.php */
