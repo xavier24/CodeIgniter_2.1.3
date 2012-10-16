@@ -25,14 +25,31 @@ class Prof extends CI_Controller {
 
         public function lister()
 	{
-            $this->load->model('M_Prof');
-            $dataList['profs'] = $this->M_Prof->lister();
-            $dataLayout['vue'] = $this->load->view('lister',$dataList,true);
-            //$dataLayout['titre'] = 'Accueil';
-            //$dataLayout['profs'] = 'tableau des profs';
-            $this->load->view('layout',$dataLayout);
+            $uri= $this->uri->segment(3);
+            if($uri=="spec")
+            {
+                $this->load->model('M_Prof');
+                $idSpec = $this->uri->segment(4);
+                $dataList['profs'] = $this->M_Prof->listerSpec($idSpec);
+                $dataLayout['vue'] = $this->load->view('lister',$dataList,true);
+                $dataLayout['titre'] = 'Liste des profs de '.$dataList['profs'][0]->specialite;
+                //$dataLayout['profs'] = 'tableau des profs';
+
+                $this->load->view('layout',$dataLayout);
+            }
+            else
+            {
+                $this->load->model('M_Prof');
+                $dataList['profs'] = $this->M_Prof->lister();
+                $dataLayout['vue'] = $this->load->view('lister',$dataList,true);
+                $dataLayout['titre'] = 'Liste des profs';
+                //$dataLayout['profs'] = 'tableau des profs';
+
+                $this->load->view('layout',$dataLayout);
+            }
 	}
         
+              
         public function voir()
         {
             
@@ -40,14 +57,14 @@ class Prof extends CI_Controller {
             $idProf = $this->uri->segment(3);
             $dataProf['prof'] = $this->M_Prof->voir($idProf);
             $dataLayout['vue'] = $this->load->view('voir',$dataProf,true);
-                        
+            $dataLayout['titre'] = "Fiche de ".$dataProf['prof']->prenom." ".$dataProf['prof']->nom;
+            
             $this->load->view('layout',$dataLayout);
         }
         
-        public function test()
-        {
-            $this->load->view('test');
-        }
+        
+        
+        
 }
 
 /* End of file welcome.php */

@@ -17,7 +17,7 @@
                         </div>
                         <p class="caractere"><?php echo $prof->caractere; ?></p>
                         <p class="specialite">
-                            Bosse en : <a><?php echo $prof->specialite; ?></a>
+                            Bosse en <?php echo anchor( 'prof/lister/spec/'.$prof->sspec_id,$prof->specialite,array('title'=>'voir les profs de '.$prof->specialite, 'hreflang'=>'fr' )); ?>
                         </p>
                         <p>
                             <a href="#">J'adopte ce prof</a>

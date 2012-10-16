@@ -14,5 +14,5 @@
     </p>
 </div>
 <p id="voirliste">
-    <?php echo anchor( 'prof/lister','Liste des profs',array('title'=>'voir la liste des profs', 'hreflang'=>'fr' )); ?>
+    <?php echo anchor( 'prof/lister','Voir la liste des profs, toutes spécialités confondues',array('title'=>'voir la liste des profs', 'hreflang'=>'fr' )); ?>
 </p>
