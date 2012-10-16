@@ -36,6 +36,11 @@ class Prof extends CI_Controller {
         public function voir()
         {
             
+            $this->load->model('M_Prof');
+            $idProf = $this->uri->segment(3);
+            $dataProf['prof'] = $this->M_Prof->voir($idProf);
+            $dataLayout['vue'] = $this->load->view('voir',$dataProf,true);
+                        
             $this->load->view('layout',$dataLayout);
         }
         

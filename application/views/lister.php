@@ -10,10 +10,10 @@
                             <?php echo anchor( 'prof/voir/'.$prof->prof_id,$prof->prenom.' '.$prof->nom,array('title'=>'voir la fiche de '.$prof->prenom.' '.$prof->nom, 'hreflang'=>'fr' )); ?>
                         </h3>
                         <div class="image">
+                            <?php echo anchor( 'prof/voir/'.$prof->prof_id,'<img src="'.site_url().THUMBS_DIR.$prof->photo.'" title="photo de '.$prof->prenom.' '.$prof->nom.'" alt="photo de '.$prof->prenom.' '.$prof->nom.'" />'
+,array('title'=>'voir la fiche de '.$prof->prenom.' '.$prof->nom, 'hreflang'=>'fr' )); ?>
+                        
                             
-                            <a href="#" title="voir la fiche de <?php echo $prof->prenom.' '.$prof->nom ?>">
-                                <img src="<?php echo site_url().THUMBS_DIR.$prof->photo; ?>" title="photo de <?php echo $prof->prenom.' '.$prof->nom ?>" alt="photo de <?php echo $prof->prenom.' '.$prof->nom ?>" />
-                            </a>
                         </div>
                         <p class="caractere"><?php echo $prof->caractere; ?></p>
                         <p class="specialite">
