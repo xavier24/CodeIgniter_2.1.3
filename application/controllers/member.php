@@ -22,4 +22,9 @@ class member extends CI_Controller {
             redirect('error/mauvais_identifiant');
         }
     }
+    
+    public function deconnecter(){
+        $this->session->unset_userdata('logged_in');
+        redirect('member');
+    }
 }
