@@ -1,22 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Prof extends CI_Controller {
-
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -  
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in 
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
+    
+    
         public function index()
         {
             $this->lister();
@@ -26,27 +12,25 @@ class Prof extends CI_Controller {
         public function lister()
 	{
             $uri= $this->uri->segment(3);
-            if($uri=="spec")
+            $dataList['deja_adoptes'] = $this->session->userdata('deja_adoptes');
+           
+            $this->load->model('M_Prof');
+            
+            if($uri=="spec")            
             {
-                $this->load->model('M_Prof');
+                
                 $idSpec = $this->uri->segment(4);
                 $dataList['profs'] = $this->M_Prof->listerSpec($idSpec);
-                $dataLayout['vue'] = $this->load->view('lister',$dataList,true);
-                $dataLayout['titre'] = 'Liste des profs de '.$dataList['profs'][0]->specialite;
-                //$dataLayout['profs'] = 'tableau des profs';
-
-                $this->load->view('layout',$dataLayout);
+                $dataList['titre'] = 'Liste des profs de '.$dataList['profs'][0]->specialite;
             }
             else
             {
-                $this->load->model('M_Prof');
                 $dataList['profs'] = $this->M_Prof->lister();
-                $dataLayout['vue'] = $this->load->view('lister',$dataList,true);
-                $dataLayout['titre'] = 'Liste des profs';
-                //$dataLayout['profs'] = 'tableau des profs';
-
-                $this->load->view('layout',$dataLayout);
-            }
+                $dataList['titre'] = 'Liste des profs';
+            } 
+            
+            $dataLayout['vue'] = $this->load->view('lister',$dataList,true);
+            $this->load->view('layout',$dataLayout);
 	}
         
               
@@ -64,7 +48,30 @@ class Prof extends CI_Controller {
         
         
         
+        public function adopte()
+        {
+            $id= $this->uri->segment(3);
+            $this->load->model('M_Prof');
+            $prof = $this->M_Prof->voir($id);
+            $deja_adoptes = $this->session->userdata('deja_adoptes')? $this->session->userdata('deja_adoptes') :array();
+            $deja_adoptes[$id] = $prof;
+            $this->session->set_userdata(array('deja_adoptes'=>$deja_adoptes));
+            
+            redirect('/prof/lister');
+            //redirect($this->session->flashdata('current_url'));
+        }
         
+        public function libere()
+        {
+            $id= $this->uri->segment(3);
+            $deja_adoptes_tmp = $this->session->userdata('deja_adoptes');
+            unset($deja_adoptes_tmp[$id]);
+            $this->session->unset_userdata('deja_adoptes');
+            $this->session->set_userdata('deja_adoptes',$deja_adoptes_tmp);
+            
+            redirect('/prof/lister');
+            //redirect($this->session->flashdata('current_url'));
+        }
 }
 
 /* End of file welcome.php */
