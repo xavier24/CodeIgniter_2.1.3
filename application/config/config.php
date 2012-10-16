@@ -26,7 +26,7 @@ $config['base_url']	= 'http://127.0.0.1/CodeIgniter_2.1.3';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'index.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------

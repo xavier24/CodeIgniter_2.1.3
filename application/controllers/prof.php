@@ -17,13 +17,27 @@ class Prof extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
+        public function index()
+        {
+            $this->lister();
+        }
+
+
+        public function lister()
 	{
-            $data['titre'] = 'Accueil';
-            $data['profs'] = 'tableau des profs';
-            $data['vue'] = $this->load->view('lister',$data,true);
-            $this->load->view('layout',$data);
+            $this->load->model('M_Prof');
+            $dataList['profs'] = $this->M_Prof->lister();
+            $dataLayout['vue'] = $this->load->view('lister',$dataList,true);
+            //$dataLayout['titre'] = 'Accueil';
+            //$dataLayout['profs'] = 'tableau des profs';
+            $this->load->view('layout',$dataLayout);
 	}
+        
+        public function voir()
+        {
+            
+            $this->load->view('layout',$dataLayout);
+        }
         
         public function test()
         {
